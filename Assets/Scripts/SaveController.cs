@@ -76,7 +76,7 @@ public class SaveFileBase : AbsSaveFileBase
         this.file = file;
         _saveFileBase = saveFile;
     }
-    public override async Task Load()
+    public override Task Load()
     {
         throw new NotImplementedException();
     }
@@ -99,7 +99,7 @@ public abstract class AbsSaveFileBase : ISaveFileBase
         file = saveFile?.file;
     }
 
-    public abstract async Task Load();
+    public abstract Task Load();
 
     public abstract Task Save();
 
@@ -112,7 +112,7 @@ public class EncryAndDecryDecorator : AbsSaveFileBase
 
     }
 
-    public override async Task Load()
+    public override Task Load()
     {
         throw new NotImplementedException();
     }
@@ -129,7 +129,7 @@ public class SerializeAndDeserializeDecorator : AbsSaveFileBase
     {
     }
 
-    public override async Task Load()
+    public override Task Load()
     {
         throw new NotImplementedException();
     }
@@ -146,7 +146,7 @@ public class SplitAndMergaDecorator : AbsSaveFileBase
     {
     }
 
-    public override async Task Load()
+    public override Task Load()
     {
         throw new NotImplementedException();
     }
@@ -163,7 +163,7 @@ public class AddCRCAndVerifyDecorator : AbsSaveFileBase
     {
     }
 
-    public override async Task Load()
+    public override Task Load()
     {
         throw new NotImplementedException();
     }
@@ -176,11 +176,16 @@ public class AddCRCAndVerifyDecorator : AbsSaveFileBase
 
 public class ReadAndWriteDecorator : AbsSaveFileBase
 {
+    //增加新测试
     public ReadAndWriteDecorator(AbsSaveFileBase file) : base(file)
     {
 
     }
 
+    public void Test()
+    {
+
+    }
 
     public override async Task Load()
     {
@@ -202,11 +207,9 @@ public class ReadAndWriteDecorator : AbsSaveFileBase
             }
 
         }
-
-        return true;
     }
 
-    public override Task Save()
+    public override async Task Save()
     {
         Debug.Log(file);
 
@@ -218,6 +221,5 @@ public class ReadAndWriteDecorator : AbsSaveFileBase
                 writer.Write(file.GetData<byte[]>());
             }
         }
-        return true;
     }
 }
